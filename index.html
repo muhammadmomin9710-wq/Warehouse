@@ -76,6 +76,7 @@
                 <button type="button" class="category-tab category-tab-home is-active" data-panel="home">Home</button>
                 <button type="button" class="category-tab" data-panel="zooms">Zooms</button>
                 <button type="button" class="category-tab" data-panel="outros">Outros</button>
+                <button type="button" class="category-tab" data-panel="song-pack">Song pack</button>
             </div>
         </nav>
 
@@ -293,6 +294,39 @@
                             </article>
                         </div>
                     </div>
+                </div>
+            </div>
+            <!-- Song pack: audio player -->
+            <div class="panel panel-song-pack" id="panel-song-pack" role="tabpanel">
+                <h2 class="panel-heading">Song pack</h2>
+                <div class="song-pack-wrap">
+                    <audio id="song-pack-audio" preload="metadata"></audio>
+                    <ul class="song-pack-list" id="song-pack-list" aria-label="Track list"></ul>
+                    <div class="song-pack-progress-wrap">
+                        <div class="song-pack-playback-spacer" aria-hidden="true"></div>
+                        <div class="song-pack-playback">
+                            <span class="song-pack-time" id="song-pack-current">0:00</span>
+                            <input type="range" class="song-pack-slider" id="song-pack-slider" min="0" max="100" value="0" aria-label="Seek">
+                            <span class="song-pack-time" id="song-pack-duration">0:00</span>
+                        </div>
+                        <div class="song-pack-volume-cell">
+                        <div class="song-pack-volume-control">
+                            <div class="song-pack-volume-slider-wrap">
+                                <input type="range" class="song-pack-volume-slider" id="song-pack-volume" min="0" max="100" value="100" aria-label="Volume">
+                            </div>
+                            <button type="button" class="song-pack-volume-btn" id="song-pack-mute" aria-label="Mute">
+                                <span class="song-pack-vol-icon song-pack-vol-muted" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></span>
+                                <span class="song-pack-vol-icon song-pack-vol-unmuted" aria-hidden="true" hidden><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg></span>
+                            </button>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="song-pack-controls">
+                        <button type="button" class="song-pack-btn" id="song-pack-prev" aria-label="Previous track">‹</button>
+                        <button type="button" class="song-pack-btn song-pack-play-pause" id="song-pack-play-pause" aria-label="Play">▶</button>
+                        <button type="button" class="song-pack-btn" id="song-pack-next" aria-label="Next track">›</button>
+                    </div>
+                    <p class="song-pack-now-playing" id="song-pack-now-playing" aria-live="polite">—</p>
                 </div>
             </div>
         </div>
