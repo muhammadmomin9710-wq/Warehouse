@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master's Warehouse — Plugins, Color Packs & Project Files</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Animated gradient background (full page, behind all content) -->
+    <div class="gradient-bg" aria-hidden="true"></div>
+
+    <!-- HERO SECTION - Full-width, video behind text overlay -->
+    <header class="hero" id="hero">
+        <video class="hero-video" autoplay muted loop playsinline>
+            <source src="videos/hero-video.mp4" type="video/mp4">
+        </video>
+        <div class="hero-overlay-bg" aria-hidden="true"></div>
+        <div class="hero-overlay">
+            <h1 class="hero-title">Master's Warehouse</h1>
+            <p class="hero-subtitle">Your destination for plugins, color correction packs, and project files</p>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <!-- TOP NAV: Home (center), Color Correction, Twixter, Zooms, Outros -->
+        <nav class="category-nav section" id="products" aria-label="Product categories">
+            <div class="category-nav-inner">
+                <button type="button" class="category-tab" data-panel="color-correction">Color Correction</button>
+                <button type="button" class="category-tab" data-panel="twixter">Twixter</button>
+                <button type="button" class="category-tab category-tab-home is-active" data-panel="home">Home</button>
+                <button type="button" class="category-tab" data-panel="zooms">Zooms</button>
+                <button type="button" class="category-tab" data-panel="outros">Outros</button>
+            </div>
+        </nav>
+
+        <!-- CONTENT PANELS: one visible at a time -->
+        <div class="content-panels section">
+            <!-- Home: mixed deals / hot sale from all categories -->
+            <div class="panel panel-home is-active" id="panel-home" role="tabpanel">
+                <h2 class="panel-heading">Hot deals & best sellers</h2>
+                <div class="product-grid product-grid-home">
+                    <article class="product-card product-card-hot">
+                        <span class="hot-badge">Hot</span>
+                        <div class="product-image-wrap">
+                            <img src="https://placehold.co/400x240/2d1b4e/ffffff?text=Deal+1" alt="Deal 1" loading="lazy">
+                        </div>
+                        <h3>Deal Product 1</h3>
+                        <p class="product-desc">Replace with your deal description.</p>
+                        <span class="product-tooltip">Replace with your deal description.</span>
+                        <button type="button" class="btn btn-cart" data-product-name="Deal Product 1">Add to Cart</button>
+                    </article>
+                    <article class="product-card product-card-hot">
+                        <span class="hot-badge">Sale</span>
+                        <div class="product-image-wrap">
+                            <img src="https://placehold.co/400x240/2d1b4e/ffffff?text=CC+Pick" alt="Color pack" loading="lazy">
+                        </div>
+                        <h3>Color Pack 1</h3>
+                        <p class="product-desc">Replace with your color correction pack description.</p>
+                        <span class="product-tooltip">Replace with your color correction pack description.</span>
+                        <button type="button" class="btn btn-cart" data-product-name="Color Pack 1">Add to Cart</button>
+                    </article>
+                    <article class="product-card product-card-hot">
+                        <span class="hot-badge">Hot</span>
+                        <div class="product-image-wrap">
+                            <img src="https://placehold.co/400x240/2d1b4e/ffffff?text=Twixter+Pick" alt="Twixter" loading="lazy">
+                        </div>
+                        <h3>Twixter Pack 1</h3>
+                        <p class="product-desc">Replace with your twixter product description.</p>
+                        <span class="product-tooltip">Replace with your twixter product description.</span>
+                        <button type="button" class="btn btn-cart" data-product-name="Twixter Pack 1">Add to Cart</button>
+                    </article>
+                    <article class="product-card product-card-hot">
+                        <span class="hot-badge">Sale</span>
+                        <div class="product-image-wrap">
+                            <img src="https://placehold.co/400x240/2d1b4e/ffffff?text=Zoom+Pick" alt="Zoom" loading="lazy">
+                        </div>
+                        <h3>Zoom Pack 1</h3>
+                        <p class="product-desc">Replace with your zoom or text animation description.</p>
+                        <span class="product-tooltip">Replace with your zoom or text animation description.</span>
+                        <button type="button" class="btn btn-cart" data-product-name="Zoom Pack 1">Add to Cart</button>
+                    </article>
+                </div>
+            </div>
+            <!-- Color Correction -->
+            <div class="panel panel-color-correction" id="panel-color-correction" role="tabpanel">
+                <h2 class="panel-heading">Color Correction</h2>
+                <div class="product-grid">
+                    <article class="product-card">
+                        <div class="product-image-wrap">
+                            <img src="https://placehold.co/400x240/2d1b4e/ffffff?text=CC+1" alt="Color correction 1" loading="lazy">
+                        </div>
+                        <h3>Color Pack 1</h3>
+                        <p class="product-desc">Replace with your color correction pack description.</p>
+                        <span class="product-tooltip">Replace with your color correction pack description.</span>
+                        <button type="button" class="btn btn-cart" data-product-name="Color Pack 1">Add to Cart</button>
+                    </article>
+                    <article class="product-card">
+                        <div class="product-image-wrap">
+                            <img src="https://placehold.co/400x240/2d1b4e/ffffff?text=CC+2" alt="Color correction 2" loading="lazy">
+                        </div>
+                        <h3>Color Pack 2</h3>
+                        <p class="product-desc">Replace with your color correction pack description.</p>
+                        <span class="product-tooltip">Replace with your color correction pack description.</span>
+                        <button type="button" class="btn btn-cart" data-product-name="Color Pack 2">Add to Cart</button>
+                    </article>
+                    <article class="product-card">
+                        <div class="product-image-wrap">
+                            <img src="https://placehold.co/400x240/2d1b4e/ffffff?text=CC+3" alt="Color correction 3" loading="lazy">
+                        </div>
+                        <h3>Color Pack 3</h3>
+                        <p class="product-desc">Replace with your color correction pack description.</p>
+                        <span class="product-tooltip">Replace with your color correction pack description.</span>
+                        <button type="button" class="btn btn-cart" data-product-name="Color Pack 3">Add to Cart</button>
+                    </article>
+                </div>
+            </div>
+            <!-- Twixter -->
+            <div class="panel panel-twixter" id="panel-twixter" role="tabpanel">
+                <h2 class="panel-heading">Twixter</h2>
+                <div class="product-grid">
+                    <article class="product-card">
+                        <div class="product-image-wrap">
+                            <img src="https://placehold.co/400x240/2d1b4e/ffffff?text=Twixter+1" alt="Twixter 1" loading="lazy">
+                        </div>
+                        <h3>Twixter Pack 1</h3>
+                        <p class="product-desc">Replace with your twixter product description.</p>
+                        <span class="product-tooltip">Replace with your twixter product description.</span>
+                        <button type="button" class="btn btn-cart" data-product-name="Twixter Pack 1">Add to Cart</button>
+                    </article>
+                    <article class="product-card">
+                        <div class="product-image-wrap">
+                            <img src="https://placehold.co/400x240/2d1b4e/ffffff?text=Twixter+2" alt="Twixter 2" loading="lazy">
+                        </div>
+                        <h3>Twixter Pack 2</h3>
+                        <p class="product-desc">Replace with your twixter product description.</p>
+                        <span class="product-tooltip">Replace with your twixter product description.</span>
+                        <button type="button" class="btn btn-cart" data-product-name="Twixter Pack 2">Add to Cart</button>
+                    </article>
+                    <article class="product-card">
+                        <div class="product-image-wrap">
+                            <img src="https://placehold.co/400x240/2d1b4e/ffffff?text=Twixter+3" alt="Twixter 3" loading="lazy">
+                        </div>
+                        <h3>Twixter Pack 3</h3>
+                        <p class="product-desc">Replace with your twixter product description.</p>
+                        <span class="product-tooltip">Replace with your twixter product description.</span>
+                        <button type="button" class="btn btn-cart" data-product-name="Twixter Pack 3">Add to Cart</button>
+                    </article>
+                </div>
+            </div>
+            <!-- Zooms only -->
+            <div class="panel panel-zooms" id="panel-zooms" role="tabpanel">
+                <h2 class="panel-heading">Zooms</h2>
+                <div class="product-grid">
+                    <article class="product-card">
+                        <div class="product-image-wrap">
+                            <img src="https://placehold.co/400x240/2d1b4e/ffffff?text=Zoom+1" alt="Zoom 1" loading="lazy">
+                        </div>
+                        <h3>Zoom Pack 1</h3>
+                        <p class="product-desc">Replace with your zoom product description.</p>
+                        <span class="product-tooltip">Replace with your zoom product description.</span>
+                        <button type="button" class="btn btn-cart" data-product-name="Zoom Pack 1">Add to Cart</button>
+                    </article>
+                    <article class="product-card">
+                        <div class="product-image-wrap">
+                            <img src="https://placehold.co/400x240/2d1b4e/ffffff?text=Zoom+2" alt="Zoom 2" loading="lazy">
+                        </div>
+                        <h3>Zoom Pack 2</h3>
+                        <p class="product-desc">Replace with your zoom product description.</p>
+                        <span class="product-tooltip">Replace with your zoom product description.</span>
+                        <button type="button" class="btn btn-cart" data-product-name="Zoom Pack 2">Add to Cart</button>
+                    </article>
+                </div>
+            </div>
+            <!-- Text: text-related products/effects only -->
+            <div class="panel panel-text" id="panel-text" role="tabpanel">
+                <h2 class="panel-heading">Text</h2>
+                <div class="product-grid">
+                    <article class="product-card">
+                        <div class="product-image-wrap">
+                            <img src="https://placehold.co/400x240/2d1b4e/ffffff?text=Text+Anim" alt="Text animation" loading="lazy">
+                        </div>
+                        <h3>Text Animation Pack</h3>
+                        <p class="product-desc">Replace with your text effects description.</p>
+                        <span class="product-tooltip">Replace with your text effects description.</span>
+                        <button type="button" class="btn btn-cart" data-product-name="Text Animation Pack">Add to Cart</button>
+                    </article>
+                    <article class="product-card">
+                        <div class="product-image-wrap">
+                            <img src="https://placehold.co/400x240/2d1b4e/ffffff?text=Title+Presets" alt="Title presets" loading="lazy">
+                        </div>
+                        <h3>Title Presets</h3>
+                        <p class="product-desc">Replace with your text/title product description.</p>
+                        <span class="product-tooltip">Replace with your text/title product description.</span>
+                        <button type="button" class="btn btn-cart" data-product-name="Title Presets">Add to Cart</button>
+                    </article>
+                </div>
+            </div>
+            <!-- Outros: sub-tabs Plugins | Scripts -->
+            <div class="panel panel-outros" id="panel-outros" role="tabpanel">
+                <h2 class="panel-heading">Outros</h2>
+                <nav class="outros-nav" aria-label="Outros categories">
+                    <button type="button" class="outros-tab is-active" data-outros-panel="plugins">Plugins</button>
+                    <button type="button" class="outros-tab" data-outros-panel="scripts">Scripts</button>
+                </nav>
+                <div class="outros-content">
+                    <div class="outros-subpanel is-active" id="outros-plugins">
+                        <div class="product-grid">
+                            <article class="product-card">
+                                <div class="product-image-wrap">
+                                    <img src="https://placehold.co/400x240/2d1b4e/ffffff?text=Plugin+1" alt="Plugin 1" loading="lazy">
+                                </div>
+                                <h3>Plugin Placeholder 1</h3>
+                                <p class="product-desc">Replace with your plugin description.</p>
+                                <span class="product-tooltip">Replace with your plugin description.</span>
+                                <button type="button" class="btn btn-cart" data-product-name="Plugin Placeholder 1">Add to Cart</button>
+                            </article>
+                            <article class="product-card">
+                                <div class="product-image-wrap">
+                                    <img src="https://placehold.co/400x240/2d1b4e/ffffff?text=Plugin+2" alt="Plugin 2" loading="lazy">
+                                </div>
+                                <h3>Plugin Placeholder 2</h3>
+                                <p class="product-desc">Replace with your plugin description.</p>
+                                <span class="product-tooltip">Replace with your plugin description.</span>
+                                <button type="button" class="btn btn-cart" data-product-name="Plugin Placeholder 2">Add to Cart</button>
+                            </article>
+                        </div>
+                    </div>
+                    <div class="outros-subpanel" id="outros-scripts">
+                        <div class="product-grid">
+                            <article class="product-card">
+                                <div class="product-image-wrap">
+                                    <img src="https://placehold.co/400x240/2d1b4e/ffffff?text=Script+1" alt="Script 1" loading="lazy">
+                                </div>
+                                <h3>Script Placeholder 1</h3>
+                                <p class="product-desc">Replace with your script description.</p>
+                                <span class="product-tooltip">Replace with your script description.</span>
+                                <button type="button" class="btn btn-cart" data-product-name="Script Placeholder 1">Add to Cart</button>
+                            </article>
+                            <article class="product-card">
+                                <div class="product-image-wrap">
+                                    <img src="https://placehold.co/400x240/2d1b4e/ffffff?text=Script+2" alt="Script 2" loading="lazy">
+                                </div>
+                                <h3>Script Placeholder 2</h3>
+                                <p class="product-desc">Replace with your script description.</p>
+                                <span class="product-tooltip">Replace with your script description.</span>
+                                <button type="button" class="btn btn-cart" data-product-name="Script Placeholder 2">Add to Cart</button>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ SECTION -->
+        <section class="faq section" id="faq">
+            <h2 class="section-title">FAQ</h2>
+            <div class="faq-list">
+                <details class="faq-item">
+                    <summary>What types of products do you sell?</summary>
+                    <p>We sell After Effects plugins, color correction packs, twixters, zooms, text animations, and project files.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>How do I receive my files?</summary>
+                    <p>Files are available for instant download after checkout. You'll receive a link and can re-download anytime.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>Can I get a refund?</summary>
+                    <p>Refunds are considered on a case-by-case basis if there is a genuine problem with the product. Contact us to apply.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>How do I contact you for support?</summary>
+                    <p>Email <strong>muhammadmomin9710@gmail.com</strong> or message on Discord: <strong>mobthemaster_</strong></p>
+                </details>
+            </div>
+        </section>
+
+        <!-- REVIEWS SECTION (3–4 reviews) -->
+        <section class="reviews section" id="reviews">
+            <h2 class="section-title">What Customers Say</h2>
+            <div class="review-slider-wrap">
+                <div class="review-slider">
+                    <div class="review-item active">
+                        <p class="review-text">"These color correction packs improved my workflow immensely. Exactly what I needed."</p>
+                        <span class="review-author">— Alex Johnson</span>
+                    </div>
+                    <div class="review-item">
+                        <p class="review-text">"Plugins are easy to use and feel professional. Great value."</p>
+                        <span class="review-author">— Sarah Lee</span>
+                    </div>
+                    <div class="review-item">
+                        <p class="review-text">"Quick download and excellent support when I had a question."</p>
+                        <span class="review-author">— Emma Patel</span>
+                    </div>
+                    <div class="review-item">
+                        <p class="review-text">"Best digital packs I've ever bought. Will buy again."</p>
+                        <span class="review-author">— Liam Garcia</span>
+                    </div>
+                </div>
+                <div class="review-controls">
+                    <button type="button" class="btn btn-nav" id="review-prev" aria-label="Previous review">‹</button>
+                    <span class="review-dots" id="review-dots"></span>
+                    <button type="button" class="btn btn-nav" id="review-next" aria-label="Next review">›</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section class="contact section" id="contact">
+            <h2 class="section-title">Contact</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <p><strong>Email:</strong> <a href="mailto:muhammadmomin9710@gmail.com">muhammadmomin9710@gmail.com</a></p>
+                    <p><strong>Discord:</strong> <span class="discord-handle">mobthemaster_</span></p>
+                </div>
+                <form class="contact-form" action="#" method="post" aria-label="Contact form">
+                    <input type="text" name="name" placeholder="Your Name" required>
+                    <input type="email" name="email" placeholder="Your Email" required>
+                    <textarea name="message" placeholder="Your Message" rows="4" required></textarea>
+                    <button type="submit" class="btn btn-submit">Send Message</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>© 2026 Master's Warehouse. Discord: <strong>mobthemaster_</strong> · Email: <strong>muhammadmomin9710@gmail.com</strong></p>
+    </footer>
+
+    <!-- FLOATING CART BUTTON (bottom-left, opens cart anytime) -->
+    <button type="button" class="cart-float-btn" id="cart-float-btn" aria-label="Open cart">
+        <span class="cart-float-icon" aria-hidden="true">🛒</span>
+        <span class="cart-float-count" id="cart-float-count">0</span>
+    </button>
+
+    <!-- CART POPUP (hidden by default; opens via Add to Cart or floating button) -->
+    <div class="cart-backdrop" id="cart-backdrop" aria-hidden="true"></div>
+    <aside class="cart-sidebar glass-panel" id="cart-sidebar" aria-label="Shopping cart">
+        <div class="cart-header">
+            <h3 class="cart-title">Cart</h3>
+            <span class="cart-count" id="cart-count">0</span><span class="cart-count-label"> items</span>
+            <button type="button" class="cart-close btn-close" id="cart-close" aria-label="Close cart">×</button>
+        </div>
+        <ul class="cart-items" id="cart-items"></ul>
+        <p class="cart-empty" id="cart-empty">Your cart is empty.</p>
+        <div class="cart-footer">
+            <label class="cart-discount-label" for="cart-discount">Referral / discount code</label>
+            <input type="text" id="cart-discount" class="cart-discount-input" placeholder="Enter code">
+            <button type="button" class="btn btn-purchase" id="cart-purchase">Purchase</button>
+        </div>
+    </aside>
+
+    <script src="script.js"></script>
+</body>
+</html>
