@@ -7,6 +7,52 @@
 (function () {
     'use strict';
 
+    // ----- Hero video: keep playing (inline script starts it immediately on parse) -----
+    const heroVideo = document.getElementById('hero-video');
+    const heroSoundBtn = document.getElementById('hero-sound-btn');
+    if (heroVideo) {
+        heroVideo.muted = true;
+        heroVideo.playsInline = true;
+        function playHeroVideo() { heroVideo.play().catch(function () {}); }
+        heroVideo.addEventListener('loadeddata', playHeroVideo);
+        heroVideo.addEventListener('canplay', playHeroVideo);
+        if (heroVideo.paused) playHeroVideo();
+    }
+    var heroSoundSlider = document.getElementById('hero-sound-slider');
+    if (heroVideo && heroSoundBtn) {
+        heroVideo.volume = 1;
+        function updateSoundButton() {
+            var isMuted = heroVideo.muted;
+            var mutedIcon = heroSoundBtn.querySelector('.hero-sound-muted');
+            var unmutedIcon = heroSoundBtn.querySelector('.hero-sound-unmuted');
+            heroSoundBtn.setAttribute('aria-label', isMuted ? 'Unmute video' : 'Mute video');
+            heroSoundBtn.setAttribute('title', isMuted ? 'Unmute video' : 'Mute video');
+            if (mutedIcon) mutedIcon.hidden = !isMuted;
+            if (unmutedIcon) unmutedIcon.hidden = isMuted;
+        }
+        updateSoundButton();
+        heroSoundBtn.addEventListener('click', function () {
+            heroVideo.muted = !heroVideo.muted;
+            updateSoundButton();
+        });
+    }
+    if (heroVideo && heroSoundSlider) {
+        heroSoundSlider.addEventListener('input', function () {
+            var pct = Number(heroSoundSlider.value);
+            heroVideo.volume = pct / 100;
+            if (pct > 0) heroVideo.muted = false;
+            else heroVideo.muted = true;
+            if (heroSoundBtn) {
+                var mutedIcon = heroSoundBtn.querySelector('.hero-sound-muted');
+                var unmutedIcon = heroSoundBtn.querySelector('.hero-sound-unmuted');
+                if (mutedIcon) mutedIcon.hidden = pct > 0;
+                if (unmutedIcon) unmutedIcon.hidden = pct === 0;
+                heroSoundBtn.setAttribute('aria-label', pct === 0 ? 'Unmute video' : 'Mute video');
+                heroSoundBtn.setAttribute('title', pct === 0 ? 'Unmute video' : 'Mute video');
+            }
+        });
+    }
+
     // ----- Cart state (each item: { name, description, imageSrc }) -----
     const cartItems = [];
     const cartSidebar = document.getElementById('cart-sidebar');
@@ -105,7 +151,7 @@
     });
 
     if (cartCloseBtn) cartCloseBtn.addEventListener('click', closeCart);
-    // Cart closes only when top cross is pressed (backdrop click does not close)
+    if (cartBackdrop) cartBackdrop.addEventListener('click', closeCart);
 
     const cartFloatBtn = document.getElementById('cart-float-btn');
     if (cartFloatBtn) cartFloatBtn.addEventListener('click', openCart);

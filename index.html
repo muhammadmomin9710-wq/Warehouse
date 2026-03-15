@@ -15,13 +15,55 @@
 
     <!-- HERO SECTION - Full-width, video behind text overlay -->
     <header class="hero" id="hero">
-        <video class="hero-video" autoplay muted loop playsinline>
-            <source src="videos/hero-video.mp4" type="video/mp4">
+        <video class="hero-video" autoplay muted loop playsinline preload="auto" id="hero-video">
+            <source src="hero-video.mp4" type="video/mp4">
         </video>
+        <script>
+            (function(){
+                var v = document.getElementById('hero-video');
+                if (!v) return;
+                v.muted = true;
+                v.playsInline = true;
+                v.setAttribute('muted', '');
+                function start() { v.play().catch(function(){}); }
+                start();
+                var io = new IntersectionObserver(function(entries) {
+                    if (!entries[0].isIntersecting) return;
+                    io.disconnect();
+                    requestAnimationFrame(function(){ requestAnimationFrame(start); });
+                }, { threshold: 0.01, rootMargin: '0px' });
+                io.observe(v);
+                requestAnimationFrame(function(){ start(); });
+                document.addEventListener('visibilitychange', function(){ if (document.visibilityState === 'visible') start(); });
+                window.addEventListener('pageshow', function(){ if (v.paused) start(); });
+                window.addEventListener('focus', function(){ if (v.paused) start(); });
+                v.addEventListener('loadeddata', start);
+                v.addEventListener('canplay', start);
+                v.addEventListener('suspend', start);
+                var retries = 0;
+                var t = setInterval(function(){
+                    if (v.paused && retries < 12) { start(); retries++; }
+                    else if (retries >= 12 || !v.paused) clearInterval(t);
+                }, 500);
+            })();
+        </script>
         <div class="hero-overlay-bg" aria-hidden="true"></div>
         <div class="hero-overlay">
             <h1 class="hero-title">Master's Warehouse</h1>
             <p class="hero-subtitle">Your destination for plugins, color correction packs, and project files</p>
+        </div>
+        <div class="hero-sound-control" id="hero-sound-control">
+            <div class="hero-sound-slider-wrap">
+                <input type="range" class="hero-sound-slider" id="hero-sound-slider" min="0" max="100" value="100" aria-label="Volume">
+            </div>
+            <button type="button" class="hero-sound-btn" id="hero-sound-btn" aria-label="Unmute video" title="Unmute video">
+                <span class="hero-sound-icon hero-sound-muted" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+                </span>
+<span class="hero-sound-icon hero-sound-unmuted" aria-hidden="true" hidden>
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+                </span>
+            </button>
         </div>
     </header>
 
