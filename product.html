@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master's Warehouse — Product Details</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .product-landing-wrap {
+            max-width: 1100px;
+            margin: 4rem auto;
+            padding: 0 1.5rem;
+            min-height: calc(100vh - 200px);
+            display: flex;
+            flex-direction: column;
+        }
+        .product-landing {
+            /* Glassmorphism card */
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 3rem;
+            backdrop-filter: blur(14px);
+            align-items: center;
+        }
+        .product-landing-img {
+            width: 100%;
+            border-radius: 14px;
+            aspect-ratio: 16/9;
+            object-fit: cover;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: var(--purple-mid);
+        }
+        .product-landing-img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 48px rgba(167, 139, 250, 0.2);
+        }
+        .product-info-wrap {
+            display: flex;
+            flex-direction: column;
+        }
+        .product-info-name {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+        }
+        .product-info-desc {
+            font-size: 1.15rem;
+            color: var(--white-70);
+            line-height: 1.7;
+            margin-bottom: 2.5rem;
+        }
+        .product-info-btn {
+            align-self: flex-start;
+            padding: 1.2rem 3.5rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            box-shadow: 0 8px 20px rgba(167, 139, 250, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .back-nav {
+            margin-bottom: 2.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-family: var(--font);
+            font-weight: 500;
+            font-size: 1.15rem;
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+        .back-nav:hover {
+            color: var(--white);
+            transform: translateX(-6px);
+        }
+        @media (max-width: 860px) {
+            .product-landing {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+                padding: 1.5rem;
+            }
+            .product-info-name { font-size: 2.4rem; }
+            .product-info-btn { width: 100%; text-align: center; }
+        }
+    </style>
+</head>
+<body style="min-height: 100vh; display: flex; flex-direction: column; padding-top: 80px;">
+    <!-- SITE TOPBAR -->
+    <header class="site-topbar">
+        <div class="site-topbar-left">
+            <a href="index.html" class="logo" aria-label="Home">
+                <div style="position:relative; display:inline-flex; align-items:center; justify-content:center;">
+                    <svg width="60" height="30" viewBox="0 0 60 30" style="position:absolute; left:50%; top:50%; transform:translate(-50%, -50%); overflow:visible; pointer-events:none;">
+                        <ellipse cx="30" cy="15" rx="35" ry="10" transform="rotate(-10 30 15)" fill="none" stroke="var(--accent)" stroke-width="1.5"></ellipse>
+                        <path d="M 5 0 Q 7 5 12 7 Q 7 9 5 14 Q 3 9 -2 7 Q 3 5 5 0" fill="var(--accent)"></path>
+                        <path d="M 50 15 Q 51.5 18 55 19 Q 51.5 20 50 23 Q 48.5 20 45 19 Q 48.5 18 50 15" fill="var(--white)"></path>
+                    </svg>
+                    <span style="font-size: 1.4rem; font-weight: 700; color: var(--white); z-index: 1;">mob</span>
+                </div>
+            </a>
+        </div>
+        <div class="site-topbar-center">
+            <nav class="site-topbar-nav">
+                <a href="index.html">HOME</a>
+                <a href="index.html#products">ALL PRODUCTS</a>
+                <a href="https://www.youtube.com/channel/UC_U1oM5GYTXAAlDhQXpMFaQ" target="_blank">YOUTUBE</a>
+            </nav>
+        </div>
+        <div class="site-topbar-right">
+            <button type="button" class="site-topbar-icon-btn" aria-label="Account">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            </button>
+            <button type="button" class="site-topbar-icon-btn topbar-cart-btn" aria-label="Cart">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                <span class="site-topbar-cart-badge" id="topbar-cart-count">0</span>
+            </button>
+        </div>
+    </header>
+
+    <div class="gradient-bg" aria-hidden="true"></div>
+
+    <main class="main-content" style="flex: 1;">
+        <div class="product-landing-wrap">
+            <div>
+                <a href="index.html" class="back-nav">← Back to Store</a>
+            </div>
+            <div class="product-landing" id="product-landing">
+                <!-- Data populated dynamically via Javascript -->
+                <p style="color: var(--white-70);">Loading product details...</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <p>© 2026 Master's Warehouse. Discord: <strong>mobthemaster_</strong> · Email: <strong>muhammadmomin9710@gmail.com</strong></p>
+    </footer>
+
+    <!-- CART POPUP -->
+    <button type="button" class="cart-float-btn" id="cart-float-btn" aria-label="Open cart">
+        <span class="cart-float-icon" aria-hidden="true">🛒</span>
+        <span class="cart-float-count" id="cart-float-count">0</span>
+    </button>
+    <div class="cart-backdrop" id="cart-backdrop" aria-hidden="true"></div>
+    <aside class="cart-sidebar glass-panel" id="cart-sidebar" aria-label="Shopping cart">
+        <div class="cart-header">
+            <h3 class="cart-title">Cart</h3>
+            <span class="cart-count" id="cart-count">0</span><span class="cart-count-label"> items</span>
+            <button type="button" class="cart-close btn-close" id="cart-close" aria-label="Close cart">×</button>
+        </div>
+        <ul class="cart-items" id="cart-items"></ul>
+        <p class="cart-empty" id="cart-empty">Your cart is empty.</p>
+        <div class="cart-footer">
+            <label class="cart-discount-label" for="cart-discount">Referral / discount code</label>
+            <input type="text" id="cart-discount" class="cart-discount-input" placeholder="Enter code">
+            <button type="button" class="btn btn-purchase" id="cart-purchase">Purchase</button>
+        </div>
+    </aside>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const name = params.get('name') || 'Product Details';
+            const desc = params.get('desc') || 'No description available for this product.';
+            let img = params.get('img') || 'https://placehold.co/800x450/2d1b4e/ffffff?text=Product';
+
+            img = decodeURIComponent(img);
+            document.title = `Master's Warehouse — ${name}`;
+            
+            const container = document.getElementById('product-landing');
+            container.innerHTML = `
+                <img src="${img}" alt="${name}" class="product-landing-img">
+                <div class="product-info-wrap">
+                    <h1 class="product-info-name">${name}</h1>
+                    <p class="product-info-desc">${desc}</p>
+                    <button type="button" class="btn btn-cart product-info-btn">Add to Cart</button>
+                </div>
+            `;
+
+            const btn = container.querySelector('.btn-cart');
+            btn.addEventListener('click', () => {
+                if (window.masterWarehouse) {
+                    window.masterWarehouse.addToCart({
+                        name: name,
+                        description: desc,
+                        imageSrc: img
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

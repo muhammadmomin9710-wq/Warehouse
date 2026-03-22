@@ -3,13 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Master's Warehouse — Plugins, Color Packs & Project Files</title>
+    <title>Master's Warehouse — Plugins, CCs & Project Files</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- SITE TOPBAR -->
+    <header class="site-topbar">
+        <div class="site-topbar-left">
+            <a href="index.html" class="logo" aria-label="Home">
+                <div style="position:relative; display:inline-flex; align-items:center; justify-content:center;">
+                    <svg width="60" height="30" viewBox="0 0 60 30" style="position:absolute; left:50%; top:50%; transform:translate(-50%, -50%); overflow:visible; pointer-events:none;">
+                        <ellipse cx="30" cy="15" rx="35" ry="10" transform="rotate(-10 30 15)" fill="none" stroke="var(--accent)" stroke-width="1.5"></ellipse>
+                        <path d="M 5 0 Q 7 5 12 7 Q 7 9 5 14 Q 3 9 -2 7 Q 3 5 5 0" fill="var(--accent)"></path>
+                        <path d="M 50 15 Q 51.5 18 55 19 Q 51.5 20 50 23 Q 48.5 20 45 19 Q 48.5 18 50 15" fill="var(--white)"></path>
+                    </svg>
+                    <span style="font-size: 1.4rem; font-weight: 700; color: var(--white); z-index: 1;">mob</span>
+                </div>
+            </a>
+        </div>
+        <div class="site-topbar-center">
+            <nav class="site-topbar-nav">
+                <a href="index.html">HOME</a>
+                <a href="index.html#products">ALL PRODUCTS</a>
+                <a href="https://www.youtube.com/channel/UC_U1oM5GYTXAAlDhQXpMFaQ" target="_blank">YOUTUBE</a>
+            </nav>
+        </div>
+        <div class="site-topbar-right">
+            <button type="button" class="site-topbar-icon-btn" aria-label="Account">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            </button>
+            <button type="button" class="site-topbar-icon-btn topbar-cart-btn" aria-label="Cart">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                <span class="site-topbar-cart-badge" id="topbar-cart-count">0</span>
+            </button>
+        </div>
+    </header>
+
     <!-- Animated gradient background (full page, behind all content) -->
     <div class="gradient-bg" aria-hidden="true"></div>
 
@@ -50,7 +82,7 @@
         <div class="hero-overlay-bg" aria-hidden="true"></div>
         <div class="hero-overlay">
             <h1 class="hero-title">Master's Warehouse</h1>
-            <p class="hero-subtitle">Your destination for plugins, color correction packs, and project files</p>
+            <p class="hero-subtitle">Your destination for plugins, CC packs, and project files</p>
         </div>
         <div class="hero-sound-control" id="hero-sound-control">
             <div class="hero-sound-slider-wrap">
@@ -68,15 +100,16 @@
     </header>
 
     <main class="main-content">
-        <!-- TOP NAV: Home (center), Color Correction, Twixter, Zooms, Outros -->
+        <!-- TOP NAV: CC, Twixter, Text, Home, Zooms, Plugins, Scripts, Song pack -->
         <nav class="category-nav section" id="products" aria-label="Product categories">
             <div class="category-nav-inner">
-                <button type="button" class="category-tab" data-panel="color-correction">Color Correction</button>
+                <button type="button" class="category-tab" data-panel="color-correction">CC</button>
                 <button type="button" class="category-tab" data-panel="twixter">Twixter</button>
+                <button type="button" class="category-tab" data-panel="text">Text</button>
                 <button type="button" class="category-tab category-tab-home is-active" data-panel="home">Home</button>
                 <button type="button" class="category-tab" data-panel="zooms">Zooms</button>
-                <button type="button" class="category-tab" data-panel="outros">Outros</button>
-                <button type="button" class="category-tab" data-panel="song-pack">Song pack</button>
+                <button type="button" class="category-tab" data-panel="plugins">Plugins</button>
+                <button type="button" class="category-tab" data-panel="scripts">Scripts</button>
             </div>
         </nav>
 
@@ -87,247 +120,86 @@
                 <h2 class="panel-heading">Hot deals & best sellers</h2>
                 <div class="product-grid product-grid-home">
                     <article class="product-card product-card-hot">
-                        <span class="hot-badge">Hot</span>
+                        <span class="hot-badge">New</span>
                         <div class="product-image-wrap">
-                            <img src="https://placehold.co/400x240/2d1b4e/ffffff?text=Deal+1" alt="Deal 1" loading="lazy">
+                            <img src="https://placehold.co/400x240/2d1b4e/ffffff?text=CC+Mega+Pack" alt="CC Mega Pack" loading="lazy">
                         </div>
-                        <h3>Deal Product 1</h3>
-                        <p class="product-desc">Replace with your deal description.</p>
-                        <span class="product-tooltip">Replace with your deal description.</span>
-                        <button type="button" class="btn btn-cart" data-product-name="Deal Product 1">Add to Cart</button>
+                        <h3>CC Mega Pack</h3>
+                        <div class="product-price" style="font-size: 1.5rem; font-weight: 700; color: var(--accent); margin-bottom: 0.75rem;">$34.99</div>
+                        <p class="product-desc">The ultimate collection of high-quality color correction presets.</p>
+                        <span class="product-tooltip">The ultimate collection of high-quality color correction presets.</span>
+                        <button type="button" class="btn btn-cart" data-product-name="CC Mega Pack">Add to Cart</button>
                     </article>
-                    <article class="product-card product-card-hot">
-                        <span class="hot-badge">Sale</span>
-                        <div class="product-image-wrap">
-                            <img src="https://placehold.co/400x240/2d1b4e/ffffff?text=CC+Pick" alt="Color pack" loading="lazy">
-                        </div>
-                        <h3>Color Pack 1</h3>
-                        <p class="product-desc">Replace with your color correction pack description.</p>
-                        <span class="product-tooltip">Replace with your color correction pack description.</span>
-                        <button type="button" class="btn btn-cart" data-product-name="Color Pack 1">Add to Cart</button>
-                    </article>
-                    <article class="product-card product-card-hot">
-                        <span class="hot-badge">Hot</span>
-                        <div class="product-image-wrap">
-                            <img src="https://placehold.co/400x240/2d1b4e/ffffff?text=Twixter+Pick" alt="Twixter" loading="lazy">
-                        </div>
-                        <h3>Twixter Pack 1</h3>
-                        <p class="product-desc">Replace with your twixter product description.</p>
-                        <span class="product-tooltip">Replace with your twixter product description.</span>
-                        <button type="button" class="btn btn-cart" data-product-name="Twixter Pack 1">Add to Cart</button>
-                    </article>
-                    <article class="product-card product-card-hot">
-                        <span class="hot-badge">Sale</span>
-                        <div class="product-image-wrap">
-                            <img src="https://placehold.co/400x240/2d1b4e/ffffff?text=Zoom+Pick" alt="Zoom" loading="lazy">
-                        </div>
-                        <h3>Zoom Pack 1</h3>
-                        <p class="product-desc">Replace with your zoom or text animation description.</p>
-                        <span class="product-tooltip">Replace with your zoom or text animation description.</span>
-                        <button type="button" class="btn btn-cart" data-product-name="Zoom Pack 1">Add to Cart</button>
-                    </article>
+
                 </div>
             </div>
             <!-- Color Correction -->
             <div class="panel panel-color-correction" id="panel-color-correction" role="tabpanel">
-                <h2 class="panel-heading">Color Correction</h2>
+                <h2 class="panel-heading">CC</h2>
                 <div class="product-grid">
-                    <article class="product-card">
+                    <article class="product-card product-card-hot">
+                        <span class="hot-badge">New</span>
                         <div class="product-image-wrap">
-                            <img src="https://placehold.co/400x240/2d1b4e/ffffff?text=CC+1" alt="Color correction 1" loading="lazy">
+                            <img src="https://placehold.co/400x240/2d1b4e/ffffff?text=CC+Mega+Pack" alt="CC Mega Pack" loading="lazy">
                         </div>
-                        <h3>Color Pack 1</h3>
-                        <p class="product-desc">Replace with your color correction pack description.</p>
-                        <span class="product-tooltip">Replace with your color correction pack description.</span>
-                        <button type="button" class="btn btn-cart" data-product-name="Color Pack 1">Add to Cart</button>
-                    </article>
-                    <article class="product-card">
-                        <div class="product-image-wrap">
-                            <img src="https://placehold.co/400x240/2d1b4e/ffffff?text=CC+2" alt="Color correction 2" loading="lazy">
-                        </div>
-                        <h3>Color Pack 2</h3>
-                        <p class="product-desc">Replace with your color correction pack description.</p>
-                        <span class="product-tooltip">Replace with your color correction pack description.</span>
-                        <button type="button" class="btn btn-cart" data-product-name="Color Pack 2">Add to Cart</button>
-                    </article>
-                    <article class="product-card">
-                        <div class="product-image-wrap">
-                            <img src="https://placehold.co/400x240/2d1b4e/ffffff?text=CC+3" alt="Color correction 3" loading="lazy">
-                        </div>
-                        <h3>Color Pack 3</h3>
-                        <p class="product-desc">Replace with your color correction pack description.</p>
-                        <span class="product-tooltip">Replace with your color correction pack description.</span>
-                        <button type="button" class="btn btn-cart" data-product-name="Color Pack 3">Add to Cart</button>
-                    </article>
-                </div>
+                        <h3>CC Mega Pack</h3>
+                        <div class="product-price" style="font-size: 1.5rem; font-weight: 700; color: var(--accent); margin-bottom: 0.75rem;">$34.99</div>
+                        <p class="product-desc">The ultimate collection of high-quality color correction presets.</p>
+                        <span class="product-tooltip">The ultimate collection of high-quality color correction presets.</span>
+                        <button type="button" class="btn btn-cart" data-product-name="CC Mega Pack">Add to Cart</button>
+                    </article>                </div>
             </div>
             <!-- Twixter -->
             <div class="panel panel-twixter" id="panel-twixter" role="tabpanel">
                 <h2 class="panel-heading">Twixter</h2>
                 <div class="product-grid">
-                    <article class="product-card">
-                        <div class="product-image-wrap">
-                            <img src="https://placehold.co/400x240/2d1b4e/ffffff?text=Twixter+1" alt="Twixter 1" loading="lazy">
-                        </div>
-                        <h3>Twixter Pack 1</h3>
-                        <p class="product-desc">Replace with your twixter product description.</p>
-                        <span class="product-tooltip">Replace with your twixter product description.</span>
-                        <button type="button" class="btn btn-cart" data-product-name="Twixter Pack 1">Add to Cart</button>
-                    </article>
-                    <article class="product-card">
-                        <div class="product-image-wrap">
-                            <img src="https://placehold.co/400x240/2d1b4e/ffffff?text=Twixter+2" alt="Twixter 2" loading="lazy">
-                        </div>
-                        <h3>Twixter Pack 2</h3>
-                        <p class="product-desc">Replace with your twixter product description.</p>
-                        <span class="product-tooltip">Replace with your twixter product description.</span>
-                        <button type="button" class="btn btn-cart" data-product-name="Twixter Pack 2">Add to Cart</button>
-                    </article>
-                    <article class="product-card">
-                        <div class="product-image-wrap">
-                            <img src="https://placehold.co/400x240/2d1b4e/ffffff?text=Twixter+3" alt="Twixter 3" loading="lazy">
-                        </div>
-                        <h3>Twixter Pack 3</h3>
-                        <p class="product-desc">Replace with your twixter product description.</p>
-                        <span class="product-tooltip">Replace with your twixter product description.</span>
-                        <button type="button" class="btn btn-cart" data-product-name="Twixter Pack 3">Add to Cart</button>
-                    </article>
+                    <div class="empty-state" style="text-align: center;">
+                        <span style="font-size: 1.8rem; margin-bottom: 0.5rem; display: block;">😊</span>
+                        <p style="font-size: 1.15rem; color: var(--white-90); font-weight: 500;">Not available right now... but coming soon!</p>
+                    </div>
                 </div>
             </div>
             <!-- Zooms only -->
             <div class="panel panel-zooms" id="panel-zooms" role="tabpanel">
                 <h2 class="panel-heading">Zooms</h2>
                 <div class="product-grid">
-                    <article class="product-card">
-                        <div class="product-image-wrap">
-                            <img src="https://placehold.co/400x240/2d1b4e/ffffff?text=Zoom+1" alt="Zoom 1" loading="lazy">
-                        </div>
-                        <h3>Zoom Pack 1</h3>
-                        <p class="product-desc">Replace with your zoom product description.</p>
-                        <span class="product-tooltip">Replace with your zoom product description.</span>
-                        <button type="button" class="btn btn-cart" data-product-name="Zoom Pack 1">Add to Cart</button>
-                    </article>
-                    <article class="product-card">
-                        <div class="product-image-wrap">
-                            <img src="https://placehold.co/400x240/2d1b4e/ffffff?text=Zoom+2" alt="Zoom 2" loading="lazy">
-                        </div>
-                        <h3>Zoom Pack 2</h3>
-                        <p class="product-desc">Replace with your zoom product description.</p>
-                        <span class="product-tooltip">Replace with your zoom product description.</span>
-                        <button type="button" class="btn btn-cart" data-product-name="Zoom Pack 2">Add to Cart</button>
-                    </article>
+                    <div class="empty-state" style="text-align: center;">
+                        <span style="font-size: 1.8rem; margin-bottom: 0.5rem; display: block;">😊</span>
+                        <p style="font-size: 1.15rem; color: var(--white-90); font-weight: 500;">Not available right now... but coming soon!</p>
+                    </div>
                 </div>
             </div>
             <!-- Text: text-related products/effects only -->
             <div class="panel panel-text" id="panel-text" role="tabpanel">
                 <h2 class="panel-heading">Text</h2>
                 <div class="product-grid">
-                    <article class="product-card">
-                        <div class="product-image-wrap">
-                            <img src="https://placehold.co/400x240/2d1b4e/ffffff?text=Text+Anim" alt="Text animation" loading="lazy">
-                        </div>
-                        <h3>Text Animation Pack</h3>
-                        <p class="product-desc">Replace with your text effects description.</p>
-                        <span class="product-tooltip">Replace with your text effects description.</span>
-                        <button type="button" class="btn btn-cart" data-product-name="Text Animation Pack">Add to Cart</button>
-                    </article>
-                    <article class="product-card">
-                        <div class="product-image-wrap">
-                            <img src="https://placehold.co/400x240/2d1b4e/ffffff?text=Title+Presets" alt="Title presets" loading="lazy">
-                        </div>
-                        <h3>Title Presets</h3>
-                        <p class="product-desc">Replace with your text/title product description.</p>
-                        <span class="product-tooltip">Replace with your text/title product description.</span>
-                        <button type="button" class="btn btn-cart" data-product-name="Title Presets">Add to Cart</button>
-                    </article>
-                </div>
-            </div>
-            <!-- Outros: sub-tabs Plugins | Scripts -->
-            <div class="panel panel-outros" id="panel-outros" role="tabpanel">
-                <h2 class="panel-heading">Outros</h2>
-                <nav class="outros-nav" aria-label="Outros categories">
-                    <button type="button" class="outros-tab is-active" data-outros-panel="plugins">Plugins</button>
-                    <button type="button" class="outros-tab" data-outros-panel="scripts">Scripts</button>
-                </nav>
-                <div class="outros-content">
-                    <div class="outros-subpanel is-active" id="outros-plugins">
-                        <div class="product-grid">
-                            <article class="product-card">
-                                <div class="product-image-wrap">
-                                    <img src="https://placehold.co/400x240/2d1b4e/ffffff?text=Plugin+1" alt="Plugin 1" loading="lazy">
-                                </div>
-                                <h3>Plugin Placeholder 1</h3>
-                                <p class="product-desc">Replace with your plugin description.</p>
-                                <span class="product-tooltip">Replace with your plugin description.</span>
-                                <button type="button" class="btn btn-cart" data-product-name="Plugin Placeholder 1">Add to Cart</button>
-                            </article>
-                            <article class="product-card">
-                                <div class="product-image-wrap">
-                                    <img src="https://placehold.co/400x240/2d1b4e/ffffff?text=Plugin+2" alt="Plugin 2" loading="lazy">
-                                </div>
-                                <h3>Plugin Placeholder 2</h3>
-                                <p class="product-desc">Replace with your plugin description.</p>
-                                <span class="product-tooltip">Replace with your plugin description.</span>
-                                <button type="button" class="btn btn-cart" data-product-name="Plugin Placeholder 2">Add to Cart</button>
-                            </article>
-                        </div>
-                    </div>
-                    <div class="outros-subpanel" id="outros-scripts">
-                        <div class="product-grid">
-                            <article class="product-card">
-                                <div class="product-image-wrap">
-                                    <img src="https://placehold.co/400x240/2d1b4e/ffffff?text=Script+1" alt="Script 1" loading="lazy">
-                                </div>
-                                <h3>Script Placeholder 1</h3>
-                                <p class="product-desc">Replace with your script description.</p>
-                                <span class="product-tooltip">Replace with your script description.</span>
-                                <button type="button" class="btn btn-cart" data-product-name="Script Placeholder 1">Add to Cart</button>
-                            </article>
-                            <article class="product-card">
-                                <div class="product-image-wrap">
-                                    <img src="https://placehold.co/400x240/2d1b4e/ffffff?text=Script+2" alt="Script 2" loading="lazy">
-                                </div>
-                                <h3>Script Placeholder 2</h3>
-                                <p class="product-desc">Replace with your script description.</p>
-                                <span class="product-tooltip">Replace with your script description.</span>
-                                <button type="button" class="btn btn-cart" data-product-name="Script Placeholder 2">Add to Cart</button>
-                            </article>
-                        </div>
+                    <div class="empty-state" style="text-align: center;">
+                        <span style="font-size: 1.8rem; margin-bottom: 0.5rem; display: block;">😊</span>
+                        <p style="font-size: 1.15rem; color: var(--white-90); font-weight: 500;">Not available right now... but coming soon!</p>
                     </div>
                 </div>
             </div>
-            <!-- Song pack: audio player -->
-            <div class="panel panel-song-pack" id="panel-song-pack" role="tabpanel">
-                <h2 class="panel-heading">Song pack</h2>
-                <div class="song-pack-wrap">
-                    <audio id="song-pack-audio" preload="metadata"></audio>
-                    <ul class="song-pack-list" id="song-pack-list" aria-label="Track list"></ul>
-                    <div class="song-pack-progress-wrap">
-                        <div class="song-pack-playback-spacer" aria-hidden="true"></div>
-                        <div class="song-pack-playback">
-                            <span class="song-pack-time" id="song-pack-current">0:00</span>
-                            <input type="range" class="song-pack-slider" id="song-pack-slider" min="0" max="100" value="0" aria-label="Seek">
-                            <span class="song-pack-time" id="song-pack-duration">0:00</span>
-                        </div>
-                        <div class="song-pack-volume-cell">
-                        <div class="song-pack-volume-control">
-                            <div class="song-pack-volume-slider-wrap">
-                                <input type="range" class="song-pack-volume-slider" id="song-pack-volume" min="0" max="100" value="100" aria-label="Volume">
-                            </div>
-                            <button type="button" class="song-pack-volume-btn" id="song-pack-mute" aria-label="Mute">
-                                <span class="song-pack-vol-icon song-pack-vol-muted" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></span>
-                                <span class="song-pack-vol-icon song-pack-vol-unmuted" aria-hidden="true" hidden><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg></span>
-                            </button>
-                        </div>
-                        </div>
+            <!-- Plugins -->
+            <div class="panel panel-plugins" id="panel-plugins" role="tabpanel">
+                <h2 class="panel-heading">Plugins</h2>
+                <div class="product-grid">
+                    <div class="empty-state">
+                        <span style="font-size: 3.5rem; margin-bottom: 0.5rem; display: block;">😊</span>
+                        <p style="font-size: 1.15rem; color: var(--white-90); font-weight: 500;">Not available right now... but coming soon!</p>
                     </div>
-                    <div class="song-pack-controls">
-                        <button type="button" class="song-pack-btn" id="song-pack-prev" aria-label="Previous track">‹</button>
-                        <button type="button" class="song-pack-btn song-pack-play-pause" id="song-pack-play-pause" aria-label="Play">▶</button>
-                        <button type="button" class="song-pack-btn" id="song-pack-next" aria-label="Next track">›</button>
-                    </div>
-                    <p class="song-pack-now-playing" id="song-pack-now-playing" aria-live="polite">—</p>
                 </div>
+            </div>
+            <!-- Scripts -->
+            <div class="panel panel-scripts" id="panel-scripts" role="tabpanel">
+                <h2 class="panel-heading">Scripts</h2>
+                <div class="product-grid">
+                    <div class="empty-state">
+                        <span style="font-size: 3.5rem; margin-bottom: 0.5rem; display: block;">😊</span>
+                        <p style="font-size: 1.15rem; color: var(--white-90); font-weight: 500;">Not available right now... but coming soon!</p>
+                    </div>
+                </div>
+            </div>
+        </div>          </div>
             </div>
         </div>
 
@@ -337,7 +209,7 @@
             <div class="faq-list">
                 <details class="faq-item">
                     <summary>What types of products do you sell?</summary>
-                    <p>We sell After Effects plugins, color correction packs, twixters, zooms, text animations, and project files.</p>
+                    <p>We sell After Effects plugins, CC packs, twixters, zooms, text animations, and project files.</p>
                 </details>
                 <details class="faq-item">
                     <summary>How do I receive my files?</summary>
@@ -360,7 +232,7 @@
             <div class="review-slider-wrap">
                 <div class="review-slider">
                     <div class="review-item active">
-                        <p class="review-text">"These color correction packs improved my workflow immensely. Exactly what I needed."</p>
+                        <p class="review-text">"These CC packs improved my workflow immensely. Exactly what I needed."</p>
                         <span class="review-author">— Alex Johnson</span>
                     </div>
                     <div class="review-item">

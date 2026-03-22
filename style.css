@@ -38,6 +38,115 @@ body {
 }
 
 /* ============================================
+   SITE TOPBAR
+   ============================================ */
+.site-topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding: 1rem 3rem;
+    background: rgba(10, 10, 15, 0.4);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.site-topbar-left {
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+.site-topbar-center {
+    display: flex;
+    justify-content: center;
+    flex: 2;
+}
+.site-topbar-right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex: 1;
+}
+.logo {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.site-topbar-nav {
+    display: flex;
+    gap: 3rem;
+}
+.site-topbar-nav a {
+    color: var(--white);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: color 0.2s ease;
+}
+.site-topbar-nav a:hover {
+    color: var(--accent);
+}
+.site-topbar-currency {
+    color: var(--white);
+    font-size: 0.85rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    cursor: pointer;
+    margin-right: 1.5rem;
+    transition: color 0.2s ease;
+}
+.site-topbar-currency:hover {
+    color: var(--accent);
+}
+.site-topbar-icon-btn {
+    background: none;
+    border: none;
+    color: var(--white);
+    cursor: pointer;
+    margin-left: 1.25rem;
+    padding: 0;
+    transition: color 0.2s ease, transform 0.2s ease;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.site-topbar-icon-btn:hover {
+    color: var(--accent);
+    transform: translateY(-2px);
+}
+.site-topbar-cart-badge {
+    position: absolute;
+    top: -6px;
+    right: -8px;
+    background: var(--accent);
+    color: var(--black);
+    font-size: 0.65rem;
+    font-weight: 700;
+    min-width: 16px;
+    height: 16px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+}
+@media (max-width: 900px) {
+    .site-topbar { padding: 1rem; }
+    .site-topbar-center { display: none; }
+}
+
+/* ============================================
    FULL-PAGE ANIMATED GRADIENT (purple → black, bottom to top)
    ============================================ */
 .gradient-bg {
@@ -296,7 +405,7 @@ body {
     justify-content: center;
     align-items: center;
     gap: 0.5rem;
-    max-width: 800px;
+    max-width: 1100px;
     margin: 0 auto;
 }
 
@@ -654,10 +763,10 @@ body {
    PRODUCT GRID & CARDS
    ============================================ */
 .product-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 1.5rem;
-    justify-items: center;
 }
 
 .product-card {
@@ -828,9 +937,10 @@ body {
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, 0.4);
-    z-index: 99;
+    z-index: 1099;
     opacity: 0;
     visibility: hidden;
+    pointer-events: none;
     transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
@@ -847,7 +957,7 @@ body {
     width: min(var(--cart-width), 100vw);
     max-width: 360px;
     height: 100vh;
-    z-index: 100;
+    z-index: 1100;
     display: flex;
     flex-direction: column;
     padding: 1.5rem;

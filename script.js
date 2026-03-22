@@ -7,54 +7,118 @@
 (function () {
     'use strict';
 
-    // ----- Hero video: keep playing (inline script starts it immediately on parse) -----
+    // ----- Hero video: keep playing silently -----
     const heroVideo = document.getElementById('hero-video');
-    const heroSoundBtn = document.getElementById('hero-sound-btn');
     if (heroVideo) {
         heroVideo.muted = true;
         heroVideo.playsInline = true;
+        heroVideo.volume = 0; // strictly muted
         function playHeroVideo() { heroVideo.play().catch(function () {}); }
         heroVideo.addEventListener('loadeddata', playHeroVideo);
         heroVideo.addEventListener('canplay', playHeroVideo);
         if (heroVideo.paused) playHeroVideo();
     }
-    var heroSoundSlider = document.getElementById('hero-sound-slider');
-    if (heroVideo && heroSoundBtn) {
-        heroVideo.volume = 1;
-        function updateSoundButton() {
-            var isMuted = heroVideo.muted;
-            var mutedIcon = heroSoundBtn.querySelector('.hero-sound-muted');
-            var unmutedIcon = heroSoundBtn.querySelector('.hero-sound-unmuted');
-            heroSoundBtn.setAttribute('aria-label', isMuted ? 'Unmute video' : 'Mute video');
-            heroSoundBtn.setAttribute('title', isMuted ? 'Unmute video' : 'Mute video');
-            if (mutedIcon) mutedIcon.hidden = !isMuted;
-            if (unmutedIcon) unmutedIcon.hidden = isMuted;
-        }
-        updateSoundButton();
-        heroSoundBtn.addEventListener('click', function () {
-            heroVideo.muted = !heroVideo.muted;
-            updateSoundButton();
+
+    // ----- Background Music (Original Song Pack) -----
+    // "start with the century song and end with all the ones that come"
+    const BGM_TRACKS = [
+        'Songs/EsDeeKid_-_Century_-_smarienn.wav',
+        'Songs/EsDeeKid_-_Panic_-_smarienn.wav',
+        'Songs/EsDeeKid_-_Rottweiler_-_Slowed_-_smarienn.wav',
+        'Songs/EsDeeKid_-_LV_Sandals_-_smarienn.wav',
+        'Songs/EsDeeKid_-_Rottweiler_-_intro_-_smarienn.wav'
+    ];
+    let currentBgmIndex = 0;
+    const bgmAudio = new Audio(BGM_TRACKS[currentBgmIndex]);
+    bgmAudio.volume = 1; // "when it starts it has full volume"
+
+    // Advance to next track when one ends
+    bgmAudio.addEventListener('ended', () => {
+        currentBgmIndex = (currentBgmIndex + 1) % BGM_TRACKS.length;
+        bgmAudio.src = BGM_TRACKS[currentBgmIndex];
+        bgmAudio.play().catch(function(){});
+    });
+
+    // Attempt to play music immediately. Browsers require a user gesture first,
+    // so we fallback to waiting for the user's first click anywhere on the page.
+    function startBgm() {
+        bgmAudio.play().catch(() => {
+            const onFirstInteraction = () => {
+                bgmAudio.play().catch(function(){});
+                document.removeEventListener('click', onFirstInteraction);
+                document.removeEventListener('keydown', onFirstInteraction);
+            };
+            document.addEventListener('click', onFirstInteraction);
+            document.addEventListener('keydown', onFirstInteraction);
         });
     }
-    if (heroVideo && heroSoundSlider) {
-        heroSoundSlider.addEventListener('input', function () {
-            var pct = Number(heroSoundSlider.value);
-            heroVideo.volume = pct / 100;
-            if (pct > 0) heroVideo.muted = false;
-            else heroVideo.muted = true;
-            if (heroSoundBtn) {
-                var mutedIcon = heroSoundBtn.querySelector('.hero-sound-muted');
-                var unmutedIcon = heroSoundBtn.querySelector('.hero-sound-unmuted');
-                if (mutedIcon) mutedIcon.hidden = pct > 0;
-                if (unmutedIcon) unmutedIcon.hidden = pct === 0;
-                heroSoundBtn.setAttribute('aria-label', pct === 0 ? 'Unmute video' : 'Mute video');
-                heroSoundBtn.setAttribute('title', pct === 0 ? 'Unmute video' : 'Mute video');
+    startBgm();
+
+    // ----- Wire up the hero-sound-btn and slider to the BGM -----
+    const heroSoundBtn = document.getElementById('hero-sound-btn');
+    const heroSoundSlider = document.getElementById('hero-sound-slider');
+
+    function updateBgmSoundUI() {
+        if (!heroSoundBtn) return;
+        var isMuted = bgmAudio.muted || bgmAudio.volume === 0;
+        var mutedIcon = heroSoundBtn.querySelector('.hero-sound-muted');
+        var unmutedIcon = heroSoundBtn.querySelector('.hero-sound-unmuted');
+        
+        heroSoundBtn.setAttribute('aria-label', isMuted ? 'Unmute' : 'Mute');
+        heroSoundBtn.setAttribute('title', isMuted ? 'Unmute' : 'Mute');
+        
+        if (mutedIcon) mutedIcon.hidden = !isMuted;
+        if (unmutedIcon) unmutedIcon.hidden = isMuted;
+
+        if (heroSoundSlider && !isMuted) {
+            heroSoundSlider.value = bgmAudio.volume * 100;
+        } else if (heroSoundSlider && isMuted) {
+            heroSoundSlider.value = 0;
+        }
+    }
+
+    if (heroSoundBtn) {
+        updateBgmSoundUI();
+        heroSoundBtn.addEventListener('click', function () {
+            bgmAudio.muted = !bgmAudio.muted;
+            if (!bgmAudio.muted && bgmAudio.paused) {
+                bgmAudio.play().catch(function(){});
             }
+            updateBgmSoundUI();
         });
     }
 
-    // ----- Cart state (each item: { name, description, imageSrc }) -----
-    const cartItems = [];
+    if (heroSoundSlider) {
+        heroSoundSlider.value = 100;
+        heroSoundSlider.addEventListener('input', function () {
+            var pct = Number(heroSoundSlider.value);
+            bgmAudio.volume = pct / 100;
+            if (pct > 0) {
+                bgmAudio.muted = false;
+                if (bgmAudio.paused) bgmAudio.play().catch(function(){});
+            } else {
+                bgmAudio.muted = true;
+            }
+            updateBgmSoundUI();
+        });
+    }
+
+    // ----- Cart state (persisted to localStorage) -----
+    let cartItems = [];
+    try {
+        const stored = localStorage.getItem('master_warehouse_cart');
+        if (stored) cartItems = JSON.parse(stored);
+    } catch (e) {
+        console.error('Could not load cart from localStorage', e);
+    }
+    
+    function saveCart() {
+        try {
+            localStorage.setItem('master_warehouse_cart', JSON.stringify(cartItems));
+        } catch (e) {
+            console.error('Could not save cart to localStorage', e);
+        }
+    }
     const cartSidebar = document.getElementById('cart-sidebar');
     const cartBackdrop = document.getElementById('cart-backdrop');
     const cartCountEl = document.getElementById('cart-count');
@@ -86,12 +150,14 @@
             return;
         }
         cartItems.push({ name: product.name, description: product.description, imageSrc: product.imageSrc });
+        saveCart();
         renderCart();
         openCart();
     }
 
     function removeFromCart(index) {
         cartItems.splice(index, 1);
+        saveCart();
         renderCart();
     }
 
@@ -104,11 +170,13 @@
         }
         const floatBtn = document.getElementById('cart-float-btn');
         const floatCount = document.getElementById('cart-float-count');
+        const topbarCount = document.getElementById('topbar-cart-count');
         if (floatBtn) {
             if (total > 0) floatBtn.classList.add('has-items');
             else floatBtn.classList.remove('has-items');
         }
         if (floatCount) floatCount.textContent = total;
+        if (topbarCount) topbarCount.textContent = total;
         if (cartListEl) {
             cartListEl.innerHTML = '';
             cartItems.forEach((item, index) => {
@@ -137,9 +205,15 @@
         return div.innerHTML;
     }
 
+    // Expose for external use (product.html)
+    window.masterWarehouse = {
+        addToCart: addToCart
+    };
+
     // Add to Cart: read name, description, image from product card; single-product limit
     document.querySelectorAll('.btn-cart').forEach((btn) => {
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation(); // prevent triggering the product card click
             const card = btn.closest('.product-card');
             const name = btn.getAttribute('data-product-name') ||
                 (card && card.querySelector('h3')?.textContent) || 'Product';
@@ -150,11 +224,36 @@
         });
     });
 
+    // Product card click -> redirect to product landing page
+    document.querySelectorAll('.product-card').forEach((card) => {
+        card.style.cursor = 'pointer';
+        card.addEventListener('click', (e) => {
+            if (e.target.closest('.btn-cart') || e.target.closest('.hot-badge')) return;
+            
+            const btn = card.querySelector('.btn-cart');
+            const name = btn ? btn.getAttribute('data-product-name') : (card.querySelector('h3')?.textContent || 'Product');
+            const description = card.querySelector('.product-desc')?.textContent || card.querySelector('p')?.textContent || '';
+            const img = card.querySelector('.product-image-wrap img');
+            const imageSrc = img ? img.src || img.getAttribute('src') || '' : '';
+
+            const url = new URL('product.html', window.location.href);
+            url.searchParams.set('name', name);
+            url.searchParams.set('desc', description);
+            url.searchParams.set('img', imageSrc);
+            window.location.href = url.href;
+        });
+    });
+
     if (cartCloseBtn) cartCloseBtn.addEventListener('click', closeCart);
-    if (cartBackdrop) cartBackdrop.addEventListener('click', closeCart);
 
     const cartFloatBtn = document.getElementById('cart-float-btn');
-    if (cartFloatBtn) cartFloatBtn.addEventListener('click', openCart);
+    if (cartFloatBtn) {
+        cartFloatBtn.addEventListener('click', openCart);
+    }
+
+    document.querySelectorAll('.topbar-cart-btn').forEach(btn => {
+        btn.addEventListener('click', openCart);
+    });
 
     if (cartPurchaseBtn) {
         cartPurchaseBtn.addEventListener('click', () => {
@@ -181,156 +280,9 @@
         });
     });
 
-    // ----- Song pack: play/pause, prev/next, track list -----
-    const SONG_PACK_TRACKS = [
-        { src: 'Songs/EsDeeKid_-_Century_-_smarienn.wav', name: 'Century' },
-        { src: 'Songs/EsDeeKid_-_Panic_-_smarienn.wav', name: 'Panic' },
-        { src: 'Songs/EsDeeKid_-_Rottweiler_-_Slowed_-_smarienn.wav', name: 'Rottweiler (Slowed)' },
-        { src: 'Songs/EsDeeKid_-_LV_Sandals_-_smarienn.wav', name: 'LV Sandals' },
-        { src: 'Songs/EsDeeKid_-_Rottweiler_-_intro_-_smarienn.wav', name: 'Rottweiler (intro)' }
-    ];
-    const songPackAudio = document.getElementById('song-pack-audio');
-    const songPackList = document.getElementById('song-pack-list');
-    const songPackPrev = document.getElementById('song-pack-prev');
-    const songPackPlayPause = document.getElementById('song-pack-play-pause');
-    const songPackNext = document.getElementById('song-pack-next');
-    const songPackNowPlaying = document.getElementById('song-pack-now-playing');
-    const songPackSlider = document.getElementById('song-pack-slider');
-    const songPackCurrent = document.getElementById('song-pack-current');
-    const songPackDuration = document.getElementById('song-pack-duration');
-    const songPackMute = document.getElementById('song-pack-mute');
-    const songPackVolume = document.getElementById('song-pack-volume');
-    let songPackIndex = 0;
-    let songPackSeeking = false;
-    if (songPackList && SONG_PACK_TRACKS.length) {
-        SONG_PACK_TRACKS.forEach((track, i) => {
-            const li = document.createElement('li');
-            li.textContent = track.name;
-            li.setAttribute('data-index', String(i));
-            li.addEventListener('click', () => {
-                songPackIndex = i;
-                if (songPackAudio) {
-                    songPackAudio.src = track.src;
-                    songPackAudio.play().catch(function () {});
-                }
-                updateSongPackUI();
-            });
-            songPackList.appendChild(li);
-        });
-    }
-    function formatSongPackTime(sec) {
-        if (!isFinite(sec) || sec < 0) return '0:00';
-        const m = Math.floor(sec / 60);
-        const s = Math.floor(sec % 60);
-        return m + ':' + (s < 10 ? '0' : '') + s;
-    }
-    function updateSongPackProgress() {
-        if (!songPackAudio || songPackSeeking) return;
-        const t = songPackAudio.currentTime;
-        const d = songPackAudio.duration;
-        if (songPackCurrent) songPackCurrent.textContent = formatSongPackTime(t);
-        if (songPackDuration) songPackDuration.textContent = isFinite(d) && d > 0 ? formatSongPackTime(d) : '0:00';
-        if (songPackSlider && isFinite(d) && d > 0) songPackSlider.value = Math.round((t / d) * 100);
-    }
-    function updateSongPackUI() {
-        const track = SONG_PACK_TRACKS[songPackIndex];
-        if (!track) return;
-        if (songPackNowPlaying) songPackNowPlaying.textContent = track.name;
-        if (songPackPlayPause) songPackPlayPause.textContent = songPackAudio && !songPackAudio.paused ? '❚❚' : '▶';
-        if (songPackPlayPause) songPackPlayPause.setAttribute('aria-label', songPackAudio && !songPackAudio.paused ? 'Pause' : 'Play');
-        if (songPackList) songPackList.querySelectorAll('li').forEach((li, i) => {
-            li.classList.toggle('is-active', i === songPackIndex);
-        });
-        updateSongPackProgress();
-    }
-    function playSongPackTrack(index) {
-        if (index < 0 || index >= SONG_PACK_TRACKS.length) return;
-        songPackIndex = index;
-        const track = SONG_PACK_TRACKS[songPackIndex];
-        if (songPackAudio && track) {
-            songPackAudio.src = track.src;
-            songPackAudio.play().catch(function () {});
-        }
-        updateSongPackUI();
-    }
-    if (songPackAudio) {
-        songPackAudio.addEventListener('ended', () => {
-            songPackIndex = (songPackIndex + 1) % SONG_PACK_TRACKS.length;
-            playSongPackTrack(songPackIndex);
-        });
-        songPackAudio.addEventListener('play', updateSongPackUI);
-        songPackAudio.addEventListener('pause', updateSongPackUI);
-        songPackAudio.addEventListener('timeupdate', updateSongPackProgress);
-        songPackAudio.addEventListener('loadedmetadata', updateSongPackProgress);
-        songPackAudio.addEventListener('durationchange', updateSongPackProgress);
-    }
-    if (songPackSlider && songPackAudio) {
-        songPackSlider.addEventListener('input', function () {
-            songPackSeeking = true;
-            var pct = Number(songPackSlider.value);
-            if (songPackAudio.duration && isFinite(songPackAudio.duration)) {
-                songPackAudio.currentTime = (pct / 100) * songPackAudio.duration;
-            }
-        });
-        songPackSlider.addEventListener('change', function () {
-            songPackSeeking = false;
-        });
-    }
-    if (songPackPrev) songPackPrev.addEventListener('click', () => playSongPackTrack((songPackIndex - 1 + SONG_PACK_TRACKS.length) % SONG_PACK_TRACKS.length));
-    if (songPackNext) songPackNext.addEventListener('click', () => playSongPackTrack((songPackIndex + 1) % SONG_PACK_TRACKS.length));
-    if (songPackPlayPause) {
-        songPackPlayPause.addEventListener('click', () => {
-            if (!songPackAudio) return;
-            if (songPackAudio.paused) {
-                if (!songPackAudio.src) playSongPackTrack(0);
-                else songPackAudio.play().catch(function () {});
-            } else songPackAudio.pause();
-            updateSongPackUI();
-        });
-    }
-    if (songPackAudio) songPackAudio.volume = 1;
-    if (songPackMute && songPackVolume) {
-        function updateSongPackMuteUI() {
-            var muted = songPackAudio ? songPackAudio.muted : true;
-            var vol = songPackAudio ? songPackAudio.volume : 1;
-            var mutedIcon = songPackMute.querySelector('.song-pack-vol-muted');
-            var unmutedIcon = songPackMute.querySelector('.song-pack-vol-unmuted');
-            songPackMute.setAttribute('aria-label', muted ? 'Unmute' : 'Mute');
-            if (mutedIcon) mutedIcon.hidden = !muted;
-            if (unmutedIcon) unmutedIcon.hidden = muted;
-            if (songPackVolume) songPackVolume.value = muted ? 0 : Math.round(vol * 100);
-        }
-        updateSongPackMuteUI();
-        songPackMute.addEventListener('click', function () {
-            if (!songPackAudio) return;
-            songPackAudio.muted = !songPackAudio.muted;
-            updateSongPackMuteUI();
-        });
-        songPackVolume.addEventListener('input', function () {
-            if (!songPackAudio) return;
-            var pct = Number(songPackVolume.value);
-            songPackAudio.volume = pct / 100;
-            if (pct > 0) songPackAudio.muted = false;
-            else songPackAudio.muted = true;
-            updateSongPackMuteUI();
-        });
-    }
-    updateSongPackUI();
 
-    // ----- Outros sub-tabs: Plugins | Scripts -----
-    const outrosTabs = document.querySelectorAll('.outros-tab');
-    const outrosSubpanels = document.querySelectorAll('.outros-subpanel');
-    outrosTabs.forEach((tab) => {
-        tab.addEventListener('click', () => {
-            const panelId = tab.getAttribute('data-outros-panel');
-            if (!panelId) return;
-            outrosTabs.forEach((t) => t.classList.remove('is-active'));
-            outrosSubpanels.forEach((p) => p.classList.remove('is-active'));
-            tab.classList.add('is-active');
-            const target = document.getElementById('outros-' + panelId);
-            if (target) target.classList.add('is-active');
-        });
-    });
+
+
 
     // ----- Scroll-triggered animations -----
     const observerOptions = {
